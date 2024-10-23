@@ -34,6 +34,11 @@ export class Preloader extends Scene
 
         this.load.image('logo', 'logo.png');
         this.load.image('star', 'star.png');
+
+        // Load boxer animation sprite sheets
+        this.load.setPath('assets/boxeranimation');
+        this.load.spritesheet('uppercut', 'uppercut.png', { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('block', 'block.png', { frameWidth: 64, frameHeight: 64 });
     }
 
     create ()

@@ -11,6 +11,7 @@ export class Game extends Scene
     jabRightKey: Phaser.Input.Keyboard.Key;
     jabLeftKey: Phaser.Input.Keyboard.Key;
     uppercutKey: Phaser.Input.Keyboard.Key;
+    blockKey: Phaser.Input.Keyboard.Key;
 
     constructor ()
     {
@@ -72,16 +73,24 @@ export class Game extends Scene
 
         this.anims.create({
             key: 'uppercut',
-            frames: this.anims.generateFrameNumbers('boxerUppercut', { start: 0, end: 7 }),
+            frames: this.anims.generateFrameNumbers('uppercut', { start: 0, end: 7 }),
+            frameRate: 10,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'block',
+            frames: this.anims.generateFrameNumbers('block', { start: 0, end: 7 }),
             frameRate: 10,
             repeat: 0
         });
 
         // Set up controls
-        this.cursors = this.input.keyboard.createCursorKeys();
-        this.jabRightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        this.jabLeftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.uppercutKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.cursors = this.input.keyboard!.createCursorKeys();
+        this.jabRightKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.jabLeftKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.uppercutKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.blockKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         EventBus.emit('current-scene-ready', this);
     }
@@ -89,12 +98,12 @@ export class Game extends Scene
     update ()
     {
         if (this.boxer) {
-            if (this.cursors.left.isDown)
+            if (this.cursors.left!.isDown)
             {
                 this.boxer!.setVelocityX(-160);
                 this.boxer!.anims.play('backward', true);
             }
-            else if (this.cursors.right.isDown)
+            else if (this.cursors.right!.isDown)
             {
                 this.boxer!.setVelocityX(160);
                 this.boxer!.anims.play('forward', true);
@@ -118,6 +127,11 @@ export class Game extends Scene
             if (Phaser.Input.Keyboard.JustDown(this.uppercutKey))
             {
                 this.boxer!.anims.play('uppercut', true);
+            }
+
+            if (Phaser.Input.Keyboard.JustDown(this.blockKey))
+            {
+                this.boxer!.anims.play('block', true);
             }
         }
     }
