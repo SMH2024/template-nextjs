@@ -28,8 +28,13 @@
         "build-nolog": "next build"
     },
     "dependencies": {
+<<<<<<< HEAD
         "next": "14.2.3",
         "phaser": "^3.88.2",
+=======
+        "next": "^14.2.15",
+        "phaser": "^3.86.0",
+>>>>>>> f8a07d692ce14b18cea37677acb7879a042bb001
         "react": "^18",
         "react-dom": "^18"
     },
